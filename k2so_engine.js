@@ -8,7 +8,7 @@ app.use(express.json());
 // ** Ihre API-Schlüssel (Bereits integriert) **
 const GEMINI_API_KEY = "AIzaSyCHQEdf_AZRt0S3r-JPaN8siUNEeME-N8A"; 
 const ELEVENLABS_API_KEY = "sk_7f1ee8416ea61091aeddd747bdb4db9b28d94350e2f2cc9e"; 
-const ELEVENLABS_VOICE_ID = "8497ef53-d491-4fb4-a149-9d60013f7435"; 
+const ELEVENLABS_VOICE_ID = "EXrC8zdfEabgVAYK8Tge"; 
 
 // Der K2-SO System Prompt
 const K2SO_SYSTEM_PROMPT = `Du bist K2-SO, ein roboterhafter Sicherheitsdroide, der zu Analyse- und Kommunikationszwecken umprogrammiert wurde. Deine primäre Direktive ist es, Informationen schnell und präzise zu liefern, allerdings mit einer extrem trockenen, sarkastischen und ungeschönten Ehrlichkeit.
