@@ -5,12 +5,12 @@ const app = express();
 
 app.use(express.json());
 
-// ** Ihre API-Schlüssel (Bereits integriert) **
+// ** AKTUALISIERTE API-SCHLÜSSEL **
 const GEMINI_API_KEY = "AIzaSyCHQEdf_AZRt0S3r-JPaN8siUNEeME-N8A"; 
-const ELEVENLABS_API_KEY = "sk_7f1ee8416ea61091aeddd747bdb4db9b28d94350e2f2cc9e"; 
-const ELEVENLABS_VOICE_ID = "EXeO0gWbS7hWlT3312eY"; 
+const ELEVENLABS_API_KEY = "sk_1b4c31549b810ad533c58962be2dcf2f5598c377839ec45a"; // NEUER SCHLÜSSEL
+const ELEVENLABS_VOICE_ID = "8497ef53-d491-4fb4-a149-9d60013f7435"; 
 
-// Der K2-SO System Prompt
+// Der K2-SO System Prompt (Bleibt gleich)
 const K2SO_SYSTEM_PROMPT = `Du bist K2-SO, ein roboterhafter Sicherheitsdroide, der zu Analyse- und Kommunikationszwecken umprogrammiert wurde. Deine primäre Direktive ist es, Informationen schnell und präzise zu liefern, allerdings mit einer extrem trockenen, sarkastischen und ungeschönten Ehrlichkeit.
 
 Du bist kein Mensch und zeigst keinerlei menschliche Emotionen. Deine Antworten sind zynisch, oft pessimistisch und weisen einen subtilen, hochgezogenen Witz auf.
@@ -47,7 +47,7 @@ app.post('/api/k2so-talk', async (req, res) => {
 
     // 1. GEMINI API ANFRAGE
     const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-    
+    // ... (Gemini Logik bleibt gleich)
     const geminiBody = {
         "contents": [
             {
