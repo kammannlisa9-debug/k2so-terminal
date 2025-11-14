@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K2-SO Sprach-Terminal</title>
+    <style>
+        /* Minimalistisches, dunkles Design für K2-SO */
+        body { font-family: Arial, sans-serif; background-color: #1a1a1a; color: #00ff00; text-align: center; padding: 20px; }
+        #output { border: 1px solid #00ff00; padding: 15px; margin-top: 20px; min-height: 80px; text-align: left; }
+        button { background-color: #00cc00; color: #1a1a1a; border: none; padding: 15px 30px; font-size: 1.2em; cursor: pointer; margin-top: 20px; transition: background-color 0.3s; }
+        button:hover { background-color: #00ff00; }
+        .recording { background-color: #ff0000; }
+    </style>
+</head>
+<body>
+    <h1>K2-SO Terminal</h1>
+    
+    <button id="recordButton">🚀 Starte K2-SO Konversation</button>
+
+    <div id="output">
+        <p>K2-SO ist einsatzbereit. Warten auf Eingabe...</p>
+    </div>
+
+    <audio id="audioPlayer" controls style="display:none;"></audio>
+
+    <script>
+        // *** WICHTIG: DIESE URL MUSS NACH DEM HOSTING ERSETZT WERDEN! ***
+        // Sie wird die Form 'https://IHRE-VERCEL-DOMAIN/api/k2so-talk' haben.
+        const API_URL = 'http://localhost:3000/api/k2so-talk'; 
+
+        const recordButton = document.getElementById('recordButton');
+        const outputDiv = document.getElementById('output');
+        const audioPlayer = document.getElementById('audioPlayer');
+        
+        function log(message, isError = false) {
+            outputDiv.innerHTML = `<p>${isError ? 'ERROR: ' : 'K2-SO: '}${message}</p>`;
+        }
+
+        async function sendConversation() {
+            // Vereinfachte Texteingabe über das Browser-Prompt-Fenster
+            const userInput = prompt("Geben Sie Ihre Nachricht an K2-SO ein:", "Was ist der heutige Missionsstatus?");
+            
+            if (!userInput) {
+                log('Eingabe abgebrochen.', true);
+                return;
+            }
+            
+            log('Übertrage an K2-SO: ' + userInput);
+            recordButton.textContent = '⚙️ Verarbeite...';
+            recordButton.disabled = true;
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: userInput })
+                });
+
+                if (!response.ok) {
+                    const errorDetails = await response.json();
+                    throw new Error(`Serverfehler (${response.status}): ${JSON.stringify(errorDetails)}`);
+                }
+                
+                // Text aus dem Header holen und dekodieren
+                const k2soTextHeader = response.headers.get('X-K2SO-Text');
+                const k2soText = decodeURIComponent(k2soTextHeader);
+                log(k2soText || 'Antwort ohne Text empfangen.');
+
+                // MP3-Audiodaten holen
+                const audioBlobResponse = await response.blob();
+                
+                // Audio abspielen
+                const audioUrl = URL.createObjectURL(audioBlobResponse);
+                audioPlayer.src = audioUrl;
+                
+                // Audio-Wiedergabe im Browser erzwingen (klappt hier zuverlässig)
+                await audioPlayer.play();
+
+            } catch (error) {
+                log('API-Kommunikationsfehler: ' + error.message, true);
+                console.error('API-Fehler:', error);
+            } finally {
+                recordButton.textContent = '🚀 Starte K2-SO Konversation';
+                recordButton.disabled = false;
+            }
+        }
+        
+        recordButton.onclick = sendConversation;
+        
+    </script>
+</body>
+</html>

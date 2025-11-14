@@ -1,0 +1,13 @@
+{
+  "name": "k2so-chatbot",
+  "version": "1.0.0",
+  "description": "K2-SO Conversational API Engine",
+  "main": "k2so_engine.js",
+  "scripts": {
+    "start": "node k2so_engine.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-fetch": "^2.6.1"
+  }
+}
