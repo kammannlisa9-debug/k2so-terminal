@@ -6,8 +6,8 @@ const app = express();
 app.use(express.json());
 
 // ** AKTUALISIERTE API-SCHLÜSSEL **
-const GEMINI_API_KEY = "AIzaSyCHQEdf_AZRt0S3r-JPaN8siUNEeME-N8A"; 
-const ELEVENLABS_API_KEY = "sk_1b4c31549b810ad533c58962be2dcf2f5598c377839ec45a"; // NEUER SCHLÜSSEL
+const GEMINI_API_KEY = ""; 
+const ELEVENLABS_API_KEY = ""; // NEUER SCHLÜSSEL
 const ELEVENLABS_VOICE_ID = "ErXwBdymOQ0gVvS2gj0w"; // Öffentliche, funktionierende Test-ID
 
 // Der K2-SO System Prompt (Bleibt gleich)
@@ -125,4 +125,5 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`K2-SO Engine läuft auf Port ${PORT}`);
+
 });
